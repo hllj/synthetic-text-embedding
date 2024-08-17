@@ -2,3 +2,4 @@ __pycache__
 .env
 dataset/*.json
 logs/*.log
+index/*.index
