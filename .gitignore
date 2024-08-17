@@ -1,0 +1,4 @@
+__pycache__
+.env
+dataset/*.json
+logs/*.log

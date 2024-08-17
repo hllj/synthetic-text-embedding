@@ -1,0 +1,6 @@
+google-generativeai
+faiss-cpu
+FlagEmbedding
+python-dotenv
+peft
+torch==2.0.0
