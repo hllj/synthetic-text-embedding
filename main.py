@@ -25,7 +25,7 @@ if __name__ == '__main__':
         '--n-sample', type=int, help='Number of samples to generate', default=10
     )
     parser.add_argument(
-        '--use-vector-db', type=bool, help='Use vector database', default=False, action='store_true'
+        '--use-vector-db', action='store_true', help='Use vector database to store samples', default=False
     )
     args = parser.parse_args()
     
