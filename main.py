@@ -37,7 +37,11 @@ if __name__ == '__main__':
     
     if os.path.exists(f'dataset/{SUB_TASK}.json'):
         dataset = json.load(open(f'dataset/{SUB_TASK}.json'))
-        
+    
+    # Remove all handlers associated with the root logger object.
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    
     logging.basicConfig(
         filename=f"logs/{SUB_TASK}.log",
         filemode='a',
