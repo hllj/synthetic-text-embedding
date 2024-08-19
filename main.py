@@ -49,7 +49,7 @@ if __name__ == '__main__':
     gemini_client = GeminiClient()
     prompt_factory = PromptsFactory(SUB_TASK)
     if USE_VECTOR_DB:
-        vector_database = VectorDatabase(index_name=SUB_TASK, dimension=1024, threshold=0.3)
+        vector_database = VectorDatabase(index_name=SUB_TASK, dimension=1024, threshold=0.2)
     
     stop = False
     
@@ -107,11 +107,13 @@ if __name__ == '__main__':
                 if USE_VECTOR_DB:
                     user_query = sample['user_query']
                     user_query_embedding = vector_database.get_embedding(user_query)
+                    
                     if vector_database.check_threshold(user_query_embedding):
                         dataset.append(sample)
+                        vector_database.add(user_query_embedding)
                         logging.info("Sample added to dataset")
                     else:
-                        logging.info("Sample not added to dataset")
+                        logging.info(f"Sample not added to dataset, {user_query}")
                 else:
                     dataset.append(sample)
                 

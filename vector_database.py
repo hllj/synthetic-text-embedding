@@ -6,8 +6,10 @@ from FlagEmbedding import BGEM3FlagModel
 
 INDEX_FOLDER = 'index'
 
+import logging
+
 class VectorDatabase():
-    def __init__(self, index_name='index', dimension=1024, threshold=0.3):
+    def __init__(self, index_name='index', dimension=1024, threshold=0.2):
         self.dimension = dimension
         self.index_name = index_name
         self.embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
@@ -29,8 +31,9 @@ class VectorDatabase():
     def check_threshold(self, embedding):
         distances, indices = self.index.search(embedding, 1)
         closest_distance = distances[0][0]
+        logging.info(f"Closet distance: {closest_distance}")
         return closest_distance > self.threshold # True if the closest distance is greater than the threshold
 
     def add(self, embedding):
         self.index.add(embedding)
-        self.index.write_index(self.index_path)
+        faiss.write_index(self.index, self.index_path)
