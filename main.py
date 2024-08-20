@@ -68,6 +68,7 @@ if __name__ == '__main__':
             try:
                 task_prompt = prompt_factory.get_task_prompt()
                 task_markdown = gemini_client.generate(task_prompt)
+                time.sleep(5)
                 task_list = convert_task_md_to_list(task_markdown)
                 break
             except Exception as e:
@@ -99,6 +100,7 @@ if __name__ == '__main__':
                     try:
                         sample_prompt = prompt_factory.prompt_format(**sample_args)
                         sample_json = gemini_client.generate(sample_prompt)
+                        time.sleep(5)
                         sample = process_json(sample_json)
                         break
                     except Exception as e:
