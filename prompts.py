@@ -31,6 +31,7 @@ text_classification_tasks_template = """\
 Brainstorm a list of potentially useful text classification tasks.
 Please adhere to the following guidelines:
 - Tasks should cover a diverse range of domains and task types.
+- Labels should be clear and specific, avoiding overly abstract information.
 Your output must always be a python list of strings only, with about 20 elements, and each element corresponds to a distinct
 text classification task in one sentence. Do not explain yourself or output anything else. Be creative!
 """
