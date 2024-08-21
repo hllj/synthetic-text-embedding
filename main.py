@@ -9,7 +9,7 @@ from client import GeminiClient
 from prompts_factory import PromptsFactory
 from vector_database import VectorDatabase
 
-from utils import convert_task_md_to_list, process_json
+from utils import convert_task_md_to_list, process_json, upload_to_hf
 
 import logging
 
@@ -68,7 +68,6 @@ if __name__ == '__main__':
             try:
                 task_prompt = prompt_factory.get_task_prompt()
                 task_markdown = gemini_client.generate(task_prompt)
-                time.sleep(5)
                 task_list = convert_task_md_to_list(task_markdown)
                 break
             except Exception as e:
@@ -88,19 +87,22 @@ if __name__ == '__main__':
         for task in task_list:
             if stop:
                 break
-            for combination in itertools.product(*choices_arguments.values()):
+            for i, combination in enumerate(itertools.product(*choices_arguments.values())):
                 if len(dataset) >= N_SAMPLE:
                     stop = True
                     break
+                if i % 10 == 0:
+                    upload_to_hf(SUB_TASK)
+                    print(f"Uploaded to HF, {SUB_TASK}: {len(dataset)}")
                 sample_args = dict(zip(choices_arguments.keys(), combination))
                 sample_args.update({'task': task})
                 
+                sample = None
                 sample_n_retries = 5
                 while True:
                     try:
                         sample_prompt = prompt_factory.prompt_format(**sample_args)
                         sample_json = gemini_client.generate(sample_prompt)
-                        time.sleep(5)
                         sample = process_json(sample_json)
                         break
                     except Exception as e:
@@ -110,6 +112,8 @@ if __name__ == '__main__':
                         if sample_n_retries == 0:
                             break
                 
+                if sample is None:
+                    continue
                 if USE_VECTOR_DB:
                     user_query = sample['user_query']
                     user_query_embedding = vector_database.get_embedding(user_query)
