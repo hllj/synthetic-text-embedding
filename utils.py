@@ -1,3 +1,4 @@
+import os
 import ast
 import json
 from huggingface_hub import HfApi
@@ -26,6 +27,9 @@ def process_json(sample_json):
 def upload_to_hf(sub_task):
   dataset_path = f'dataset/{sub_task}.json'
   index_path = f'index/{sub_task}.index'
+  
+  if not os.path.exists(dataset_path) or not os.path.exists(index_path):
+    return
   
   api.upload_file(
     path_or_fileobj=dataset_path,
