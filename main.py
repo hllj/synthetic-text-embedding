@@ -119,7 +119,7 @@ if __name__ == '__main__':
                 if sample is None:
                     continue
                 if USE_VECTOR_DB:
-                    user_query = sample['user_query']
+                    user_query = sample[prompt_factory.get_key()]
                     user_query_embedding = vector_database.get_embedding(user_query)
                     
                     if vector_database.check_threshold(user_query_embedding):
