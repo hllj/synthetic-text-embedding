@@ -4,3 +4,4 @@ dataset/*.json
 logs/*.log
 index/*.index
 outputs/
+list_api_key.txt

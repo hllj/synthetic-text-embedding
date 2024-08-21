@@ -87,11 +87,14 @@ if __name__ == '__main__':
         for task in task_list:
             if stop:
                 break
+            upload_to_hf(SUB_TASK)
+            print(f"Finish Task, Uploaded to HF, {SUB_TASK}: {len(dataset)}")
+            
             for i, combination in enumerate(itertools.product(*choices_arguments.values())):
                 if len(dataset) >= N_SAMPLE:
                     stop = True
                     break
-                if i % 10 == 0:
+                if (i + 1) % 10 == 0:
                     upload_to_hf(SUB_TASK)
                     print(f"Uploaded to HF, {SUB_TASK}: {len(dataset)}")
                 sample_args = dict(zip(choices_arguments.keys(), combination))
@@ -103,6 +106,7 @@ if __name__ == '__main__':
                     try:
                         sample_prompt = prompt_factory.prompt_format(**sample_args)
                         sample_json = gemini_client.generate(sample_prompt)
+                        time.sleep(5)
                         sample = process_json(sample_json)
                         break
                     except Exception as e:
@@ -129,3 +133,5 @@ if __name__ == '__main__':
                 
                 with open(f'dataset/{SUB_TASK}.json', 'w', encoding='utf8') as f:
                     json.dump(dataset, f, ensure_ascii=False, indent=4)
+    
+    upload_to_hf(SUB_TASK)
