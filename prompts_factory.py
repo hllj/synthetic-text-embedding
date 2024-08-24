@@ -1,5 +1,6 @@
 from prompts import text_retrieval_tasks_template, synthetic_sample_text_retrieval_template, \
-    text_classification_tasks_template, synthetic_sample_text_classification_template
+    text_classification_tasks_template, synthetic_sample_text_classification_template, \
+    text_matching_tasks_template, synthetic_text_matching_template
 
 prompts_library = {
     'short_long': {
@@ -24,6 +25,14 @@ prompts_library = {
             'language': ['Vietnamese'],
             'clarity': ["clear", "understandable with some effort", "ambiguous"],
             'difficulty': ["high school", "college", "PhD"]
+        }
+    },
+    'short_short': {
+        'task': text_matching_tasks_template,
+        'sample': synthetic_text_matching_template,
+        'key': 'input',
+        'choices_arguments': {
+            'language': ['Vietnamese']
         }
     }
 }

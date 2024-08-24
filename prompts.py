@@ -3,7 +3,7 @@ text_retrieval_tasks_template = """\
 Brainstorm a list of potentially useful text retrieval tasks.
 Here are a few examples for your reference:
 - Retrieve relevant documents for a short keyword web search query that asks for weather information.
-- Search for documents that answers a FAQ-style query on children’s nutrition.
+- Search for documents that answers a FAQ-style query on children's nutrition.
 Please adhere to the following guidelines:
 - Specify what the query is, and what the desired documents are.
 - Each retrieval task should cover a wide range of queries, and should not be too specific.
@@ -18,7 +18,7 @@ Your mission is to write one text retrieval example for this task in JSON format
 - "hard_negative_document": a string, a hard negative document that only appears relevant to the query.
 Please adhere to the following guidelines:
 - The "user_query" should be {query_type}, {query_length}, {clarity}, and diverse in topic.
-- All documents must be created independent of the query. Avoid copying the query verbatim. It’s acceptable if some parts of the "positive_document" are not topically related to the query.
+- All documents must be created independent of the query. Avoid copying the query verbatim. It's acceptable if some parts of the "positive_document" are not topically related to the query.
 - All documents should be at least {num_words} words long.
 - The "hard_negative_document" contains some useful information, but it should be less useful or comprehensive compared to the "positive_document".
 - Both the query and documents should be in {language}.
@@ -49,3 +49,23 @@ Please adhere to the following guidelines:
 - The "input_text" is {clarity} and requires {difficulty} level education to comprehend.
 Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!
 """
+
+text_matching_tasks_template = """Brainstorm a list of text matching tasks where both the queries and the groundtruth documents are very short (one or two
+sentences, even a short phrase).
+Here are a few examples:
+- Given a scientific paper title, retrieve the title of papers that cite the given paper.
+- Match a word with its definition.
+- Provided a notable person's name, identify their occupation or achievement.
+Your output must always be a python list of strings only, with about 20 elements, and each element corresponds to a distinct
+task in one sentence. Do not explain yourself or output anything else. Be creative!"""
+
+synthetic_text_matching_template = """You have been assigned a text matching task: {task}
+Your mission is to write one example for this task in JSON format. The JSON object must contain the following keys:
+- "input": a string, a random input specified by the task.
+- "positive_document": a string, a relevant document for the "input" according to the task.
+Please adhere to the following guidelines:
+- The values of all fields should be in {language}.
+- Both the "input" and "positive_document" should be very short (a sentence or a phrase), avoid substantial word overlaps,
+otherwise the task would be too easy.
+- The "input" and "positive_document" should be independent of each other.
+Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!"""
