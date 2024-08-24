@@ -1,6 +1,7 @@
 from prompts import text_retrieval_tasks_template, synthetic_sample_text_retrieval_template, \
     text_classification_tasks_template, synthetic_sample_text_classification_template, \
-    text_matching_tasks_template, synthetic_text_matching_template
+    short_short_text_matching_tasks_template, short_short_synthetic_text_matching_template, \
+    long_long_text_matching_tasks_template, long_long_synthetic_text_matching_template
 
 prompts_library = {
     'short_long': {
@@ -28,8 +29,16 @@ prompts_library = {
         }
     },
     'short_short': {
-        'task': text_matching_tasks_template,
-        'sample': synthetic_text_matching_template,
+        'task': short_short_text_matching_tasks_template,
+        'sample': short_short_synthetic_text_matching_template,
+        'key': 'input',
+        'choices_arguments': {
+            'language': ['Vietnamese']
+        }
+    },
+    'long_long': {
+        'task': long_long_text_matching_tasks_template,
+        'sample': long_long_synthetic_text_matching_template,
         'key': 'input',
         'choices_arguments': {
             'language': ['Vietnamese']

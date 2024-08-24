@@ -50,7 +50,7 @@ Please adhere to the following guidelines:
 Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!
 """
 
-text_matching_tasks_template = """Brainstorm a list of text matching tasks where both the queries and the groundtruth documents are very short (one or two
+short_short_text_matching_tasks_template = """Brainstorm a list of text matching tasks where both the queries and the groundtruth documents are very short (one or two
 sentences, even a short phrase).
 Here are a few examples:
 - Given a scientific paper title, retrieve the title of papers that cite the given paper.
@@ -59,13 +59,31 @@ Here are a few examples:
 Your output must always be a python list of strings only, with about 20 elements, and each element corresponds to a distinct
 task in one sentence. Do not explain yourself or output anything else. Be creative!"""
 
-synthetic_text_matching_template = """You have been assigned a text matching task: {task}
+short_short_synthetic_text_matching_template = """You have been assigned a text matching task: {task}
 Your mission is to write one example for this task in JSON format. The JSON object must contain the following keys:
 - "input": a string, a random input specified by the task.
 - "positive_document": a string, a relevant document for the "input" according to the task.
 Please adhere to the following guidelines:
 - The values of all fields should be in {language}.
 - Both the "input" and "positive_document" should be very short (a sentence or a phrase), avoid substantial word overlaps,
+otherwise the task would be too easy.
+- The "input" and "positive_document" should be independent of each other.
+Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!"""
+
+long_long_text_matching_tasks_template = """Brainstorm a list of text matching tasks where the queries are long documents.
+Here are a few examples:
+- Given a document that supports a debatable argument, find another document that contains opposite arguments.
+- Provided a lengthy business proposal, retrieve competitive business strategies in the same industry.
+Your output must always be a python list of strings only, with about 20 elements, and each element corresponds to a distinct
+task in one sentence. Do not explain yourself or output anything else. Be creative!"""
+
+long_long_synthetic_text_matching_template = """You have been assigned a text matching task: {task}
+Your mission is to write one example for this task in JSON format. The JSON object must contain the following keys:
+- "input": a string, a random input specified by the task.
+- "positive_document": a string, a relevant document for the "input" according to the task.
+Please adhere to the following guidelines:
+- The values of all fields should be in {language}.
+- Both the "input" and "positive_document" should be long documents (at least 300 words), avoid substantial word overlaps,
 otherwise the task would be too easy.
 - The "input" and "positive_document" should be independent of each other.
 Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!"""
