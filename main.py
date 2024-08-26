@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Gemini Text Embedding Synthetic')
     parser.add_argument(
         '--sub-task', type=str, help='Task to generate text for', required=True,
-        choices=['short_long', 'long_short', 'short_short', 'long_long', 'sts', 'bitext']
+        choices=['short_long', 'long_short', 'short_short', 'long_long', 'mono_sts', 'bitext_retrieval']
     )
     parser.add_argument(
         '--n-sample', type=int, help='Number of samples to generate', default=10
