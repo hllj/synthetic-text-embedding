@@ -1,7 +1,9 @@
 from prompts import text_retrieval_tasks_template, synthetic_sample_text_retrieval_template, \
     text_classification_tasks_template, synthetic_sample_text_classification_template, \
     short_short_text_matching_tasks_template, short_short_synthetic_text_matching_template, \
-    long_long_text_matching_tasks_template, long_long_synthetic_text_matching_template
+    long_long_text_matching_tasks_template, long_long_synthetic_text_matching_template, \
+    mono_sts_template, \
+    bitext_retrieval_template   
 
 prompts_library = {
     'short_long': {
@@ -42,6 +44,31 @@ prompts_library = {
         'key': 'input',
         'choices_arguments': {
             'language': ['Vietnamese']
+        }
+    },
+    'mono_sts': {
+        'task': None,
+        'sample': mono_sts_template,
+        'key': 'S1',
+        'choices_arguments': {
+            'unit': ["sentence", "phrase", "passage"],
+            'language': ['Vietnamese'],
+            'high_score': [4, 4.5, 5],
+            'low_score': [2.5, 3, 3.5],
+            'difficulty': ["elementary school", "high school", "college"]
+        }
+    },
+    'bitext_retrieval': {
+        'task': None,
+        'sample': bitext_retrieval_template,
+        'key': 'S1',
+        'choices_arguments': {
+            'unit': ["sentence", "phrase", "passage"],
+            'src_lang': ['English', 'French', 'German'],
+            'tgt_lang': ['Vietnamese'],
+            'high_score': [4, 4.5, 5],
+            'low_score': [2.5, 3, 3.5],
+            'difficulty': ["elementary school", "high school", "college", "common knowledge"]
         }
     }
 }
