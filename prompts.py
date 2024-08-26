@@ -1,4 +1,4 @@
-# Short-Long Text Retrieval Prompts
+# Assymetric Tasks
 text_retrieval_tasks_template = """\
 Brainstorm a list of potentially useful text retrieval tasks.
 Here are a few examples for your reference:
@@ -87,3 +87,26 @@ Please adhere to the following guidelines:
 otherwise the task would be too easy.
 - The "input" and "positive_document" should be independent of each other.
 Your output must always be a JSON object only, do not explain yourself or output anything else. Be creative!"""
+
+# Symmetric Tasks
+mono_sts_template = """Write a {unit} triple with varying semantic similarity scores in JSON format. The semantic similarity score ranges from 1 to 5, with 1 denotes least similar and 5 denotes most similar.
+Please adhere to the following guidelines:
+- The keys in JSON are "S1", "S2", and "S3", the values are all strings in {language}, do not add any other keys.
+- There should be some word overlaps between all three {unit}s.
+- The similarity score between S1 and S2 should be {high_score}.
+- The similarity score between S1 and S3 should be {low_score}.
+- The {unit}s require {difficulty} level education to understand and should be diverse in terms of topic and length.
+Your output must always be a JSON object only with three keys "S1", "S2" and "S3", do not explain yourself or output
+anything else. Be creative!"""
+
+bitext_retrieval_template = """Write a {unit} triple with one {unit} in {src_lang} and two {unit}s in {tgt_lang} with varying translation qualities in JSON format.
+The triple is denotes as ("S1", "S2", "S3"). The translation quality score ranges from 1 to 5, with higher scores are better.
+Please adhere to the following guidelines:
+- The values of "S1" is a string in {src_lang}, the value of "S2" and "S3" are strings in {tgt_lang}.
+- There should be some word overlaps between "S2" and "S3".
+- The translation quality score of "S2" with respect to "S1" should be {high_score}.
+- The translation quality score of "S3" with respect to "S1" should be {low_score}.
+- "S3" should be grammatical and fluent, but contain some keyword or number translation errors, or miss some information, or contain some redundant information.
+- "S1" requires {difficulty} level education to understand and should be diverse in terms of topic and length.
+Your output must always be a JSON object only with three keys "S1", "S2" and "S3", do not explain yourself or output
+anything else. Be creative!"""
